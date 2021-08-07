@@ -60,12 +60,17 @@ class UndirectedGraph:
         """
         if u == v:
             return
-        if u in self.adj_list[v] and v in self.adj_list[u]:
-            return
+        # if u in self.adj_list[v]:
+        #     if v in self.adj_list[u]:
+        #         return
 
+        if v not in self.adj_list:
+            self.adj_list[v] = []
         if u not in self.adj_list[v]:
             self.adj_list[v].append(u)
 
+        if u not in self.adj_list:
+            self.adj_list[u] = []
         if v not in self.adj_list[u]:
             self.adj_list[u].append(v)
 
