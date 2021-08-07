@@ -46,35 +46,34 @@ class UndirectedGraph:
         """
         Add new vertex to the graph
         """
+        # returns if vertex already exists
         for key in self.adj_list:
             if key == v:
                 return
 
+        # adds vertex
         self.adj_list[v] = []
 
-
-        
     def add_edge(self, u: str, v: str) -> None:
         """
         Add edge to the graph
         """
         if u == v:
             return
-        # if u in self.adj_list[v]:
-        #     if v in self.adj_list[u]:
-        #         return
 
+        # checks for key in the dictionary and creates the key if not present
         if v not in self.adj_list:
             self.adj_list[v] = []
+        # checks for u in the value (list) and adds it to the list if not present
         if u not in self.adj_list[v]:
             self.adj_list[v].append(u)
 
+        # checks for key in the dictionary and creates the key if not present
         if u not in self.adj_list:
             self.adj_list[u] = []
+        # checks for u in the value (list) and adds it to the list if not present
         if v not in self.adj_list[u]:
             self.adj_list[u].append(v)
-
-
 
     def remove_edge(self, v: str, u: str) -> None:
         """
