@@ -58,7 +58,18 @@ class UndirectedGraph:
         """
         Add edge to the graph
         """
-        
+        if u == v:
+            return
+        if u in self.adj_list[v] and v in self.adj_list[u]:
+            return
+
+        if u not in self.adj_list[v]:
+            self.adj_list[v].append(u)
+
+        if v not in self.adj_list[u]:
+            self.adj_list[u].append(v)
+
+
 
     def remove_edge(self, v: str, u: str) -> None:
         """
