@@ -194,15 +194,55 @@ class UndirectedGraph:
                     stack.append(val)
         return visited
 
-
-
-
     def bfs(self, v_start, v_end=None) -> []:
         """
         Return list of vertices visited during BFS search
         Vertices are picked in alphabetical order
         """
-        
+        # initializes empty list of visited vertices and an empty stack
+        visited = []
+        queue = []
+        # returns an empty list if the starting vertex is not in the graph
+        if v_start not in self.adj_list:
+            return visited
+
+        # adds v_start to queue
+        queue.append(v_start)
+
+        # proceed as if there is no end vertex
+        if v_end not in self.adj_list or v_end is None:
+            while len(queue) > 0:
+                vertex = queue.pop(0)
+                if vertex not in visited:
+                    visited.append(vertex)
+                    # sorts and reverses temp list
+                    temp = self.adj_list[vertex]
+                    temp.sort()
+                    #temp.reverse()
+                    # appends values in reverse so that they will be popped in the correct order
+                    for i in temp:
+                        if i not in visited:
+                            queue.append(i)
+            return visited
+
+        # v_end exists
+        while len(queue) > 0:
+            vertex = queue.pop(0)
+            # terminates the search at v_end
+            if vertex == v_end:
+                visited.append(vertex)
+                return visited
+            if vertex not in visited:
+                visited.append(vertex)
+                # sorts and reverses temp list
+                temp = self.adj_list[vertex]
+                temp.sort()
+                #temp.reverse()
+                # appends values in reverse so that they will be popped in the correct order
+                for i in temp:
+                    if i not in visited:
+                        queue.append(i)
+        return visited
 
     def count_connected_components(self):
         """
