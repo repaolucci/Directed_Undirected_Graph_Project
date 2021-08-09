@@ -82,16 +82,24 @@ class UndirectedGraph:
         # checks for key in the dictionary and returns if not present
         if u not in self.adj_list or v not in self.adj_list:
             return
+        # checks for edge and removes if present
         if u in self.adj_list[v] and v in self.adj_list[u]:
             self.adj_list[v].remove(u)
             self.adj_list[u].remove(v)
-
-
 
     def remove_vertex(self, v: str) -> None:
         """
         Remove vertex and all connected edges
         """
+        # returns if vertex does not exist
+        if v not in self.adj_list:
+            return
+        # removes vertex and associated edges
+        del self.adj_list[v]
+
+        for key in self.adj_list:
+            if v in self.adj_list[key]:
+                self.adj_list[key].remove(v)
         
 
     def get_vertices(self) -> []:
