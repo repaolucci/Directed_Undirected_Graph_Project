@@ -64,14 +64,14 @@ class UndirectedGraph:
         # checks for key in the dictionary and creates the key if not present
         if v not in self.adj_list:
             self.adj_list[v] = []
-        # checks for u in the value (list) and adds it to the list if not present
+        # checks for u in the list and adds it to the list if not present
         if u not in self.adj_list[v]:
             self.adj_list[v].append(u)
 
         # checks for key in the dictionary and creates the key if not present
         if u not in self.adj_list:
             self.adj_list[u] = []
-        # checks for u in the value (list) and adds it to the list if not present
+        # checks for u in the list and adds it to the list if not present
         if v not in self.adj_list[u]:
             self.adj_list[u].append(v)
 
@@ -164,36 +164,36 @@ class UndirectedGraph:
         # proceed as if there is no end vertex
         if v_end not in self.adj_list or v_end is None:
             while len(stack) > 0:
-                #pop = stack.pop()
-                stack.sort()
-                pop = stack[0]
-                stack.remove(pop)
+                pop = stack.pop()
+                # stack.sort()
+                # pop = stack[0]
+                # stack.remove(pop)
                 if pop not in visited:
                     visited.append(pop)
                     # sorts temp list
                     temp = self.adj_list[pop]
-                    #temp.sort()
+                    temp.sort()
+                    temp.reverse()
                     for val in temp:
-                        if val not in stack:
-                            stack.append(val)
+                        stack.append(val)
             return visited
 
         while len(stack) > 0:
-            #pop = stack.pop()
-            stack.sort()
-            pop = stack[0]
-            stack.remove(pop)
+            pop = stack.pop()
+            # stack.sort()
+            # pop = stack[0]
+            # stack.remove(pop)
             if pop == v_end:
-                #visited.append(pop)
+                visited.append(pop)
                 return visited
             if pop not in visited:
                 visited.append(pop)
                 # sorts temp list
                 temp = self.adj_list[pop]
-                #temp.sort()
+                temp.sort()
+                temp.reverse()
                 for val in temp:
-                    if val not in stack:
-                        stack.append(val)
+                    stack.append(val)
 
         return visited
 
