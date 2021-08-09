@@ -171,7 +171,7 @@ class UndirectedGraph:
                     visited.append(pop)
                     # sorts temp list
                     temp = self.adj_list[pop]
-                    temp.sort()
+                    #temp.sort()
                     for val in temp:
                         if val not in stack:
                             stack.append(val)
@@ -189,7 +189,7 @@ class UndirectedGraph:
                 visited.append(pop)
                 # sorts temp list
                 temp = self.adj_list[pop]
-                temp.sort()
+                #temp.sort()
                 for val in temp:
                     if val not in stack:
                         stack.append(val)
