@@ -164,11 +164,11 @@ class UndirectedGraph:
         # proceed as if there is no end vertex
         if v_end not in self.adj_list or v_end is None:
             while len(stack) > 0:
-                pop = stack.pop()
-                if pop not in visited:
-                    visited.append(pop)
+                vertex = stack.pop()
+                if vertex not in visited:
+                    visited.append(vertex)
                     # sorts and reverses temp list
-                    temp = self.adj_list[pop]
+                    temp = self.adj_list[vertex]
                     temp.sort()
                     temp.reverse()
                     # appends values in reverse so that they will be popped in the correct order
@@ -178,15 +178,15 @@ class UndirectedGraph:
 
         # v_end exists
         while len(stack) > 0:
-            pop = stack.pop()
+            vertex = stack.pop()
             # terminates the search at v_end
-            if pop == v_end:
-                visited.append(pop)
+            if vertex == v_end:
+                visited.append(vertex)
                 return visited
-            if pop not in visited:
-                visited.append(pop)
+            if vertex not in visited:
+                visited.append(vertex)
                 # sorts and reverses temp list
-                temp = self.adj_list[pop]
+                temp = self.adj_list[vertex]
                 temp.sort()
                 temp.reverse()
                 # appends values in reverse so that they will be popped in the correct order
@@ -244,9 +244,45 @@ class UndirectedGraph:
 
     def count_connected_components(self):
         """
-        Return number of connected componets in the graph
+        Return number of connected components in the graph
         """
-      
+        connected = []
+
+        count = 0
+
+        for key in self.adj_list:
+            if key not in connected:
+                count += 1
+                temp = self.dfs(key)
+                for val in temp:
+                    connected.append(val)
+        return count
+
+        # for key in self.adj_list:
+        #     if connected == []:
+        #         connected.append(key)
+        #         count += 1
+        #         for val in self.adj_list[key]:
+        #             # if val not in connected:
+        #             connected.append(val)
+        #             for i in self.adj_list[val]:
+        #                 connected.append(i)
+        #     if key not in connected:
+        #         connected.append(key)
+        #         count += 1
+        #         for val in self.adj_list[key]:
+        #             # if val not in connected:
+        #             connected.append(val)
+        #             for i in self.adj_list[val]:
+        #                 connected.append(i)
+        #     else:
+        #         for val in self.adj_list[key]:
+        #             # if val not in connected:
+        #             connected.append(val)
+        #             for i in self.adj_list[val]:
+        #                 connected.append(i)
+        #
+        # return count
 
     def has_cycle(self):
         """
@@ -315,23 +351,23 @@ if __name__ == '__main__':
         v1, v2 = test_cases[i], test_cases[-1 - i]
         print(f'{v1}-{v2} DFS:{g.dfs(v1, v2)} BFS:{g.bfs(v1, v2)}')
 
-    #
-    # print("\nPDF - method count_connected_components() example 1")
-    # print("---------------------------------------------------")
-    # edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
-    # g = UndirectedGraph(edges)
-    # test_cases = (
-    #     'add QH', 'remove FG', 'remove GQ', 'remove HQ',
-    #     'remove AE', 'remove CA', 'remove EB', 'remove CE', 'remove DE',
-    #     'remove BC', 'add EA', 'add EF', 'add GQ', 'add AC', 'add DQ',
-    #     'add EG', 'add QH', 'remove CD', 'remove BD', 'remove QG')
-    # for case in test_cases:
-    #     command, edge = case.split()
-    #     u, v = edge
-    #     g.add_edge(u, v) if command == 'add' else g.remove_edge(u, v)
-    #     print(g.count_connected_components(), end=' ')
-    # print()
-    #
+
+    print("\nPDF - method count_connected_components() example 1")
+    print("---------------------------------------------------")
+    edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
+    g = UndirectedGraph(edges)
+    test_cases = (
+        'add QH', 'remove FG', 'remove GQ', 'remove HQ',
+        'remove AE', 'remove CA', 'remove EB', 'remove CE', 'remove DE',
+        'remove BC', 'add EA', 'add EF', 'add GQ', 'add AC', 'add DQ',
+        'add EG', 'add QH', 'remove CD', 'remove BD', 'remove QG')
+    for case in test_cases:
+        command, edge = case.split()
+        u, v = edge
+        g.add_edge(u, v) if command == 'add' else g.remove_edge(u, v)
+        print(g.count_connected_components(), end=' ')
+    print()
+
     #
     # print("\nPDF - method has_cycle() example 1")
     # print("----------------------------------")
