@@ -165,36 +165,33 @@ class UndirectedGraph:
         if v_end not in self.adj_list or v_end is None:
             while len(stack) > 0:
                 pop = stack.pop()
-                # stack.sort()
-                # pop = stack[0]
-                # stack.remove(pop)
                 if pop not in visited:
                     visited.append(pop)
-                    # sorts temp list
+                    # sorts and reverses temp list
                     temp = self.adj_list[pop]
                     temp.sort()
                     temp.reverse()
+                    # appends values in reverse so that they will be popped in the correct order
                     for val in temp:
                         stack.append(val)
             return visited
 
+        # v_end exists
         while len(stack) > 0:
             pop = stack.pop()
-            # stack.sort()
-            # pop = stack[0]
-            # stack.remove(pop)
+            # terminates the search at v_end
             if pop == v_end:
                 visited.append(pop)
                 return visited
             if pop not in visited:
                 visited.append(pop)
-                # sorts temp list
+                # sorts and reverses temp list
                 temp = self.adj_list[pop]
                 temp.sort()
                 temp.reverse()
+                # appends values in reverse so that they will be popped in the correct order
                 for val in temp:
                     stack.append(val)
-
         return visited
 
 
