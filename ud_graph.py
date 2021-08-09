@@ -146,13 +146,53 @@ class UndirectedGraph:
                 return False
         return True
 
-
     def dfs(self, v_start, v_end=None) -> []:
         """
         Return list of vertices visited during DFS search
         Vertices are picked in alphabetical order
         """
-       
+        # initializes empty list of visited vertices and an empty stack
+        visited = []
+        stack = []
+        # returns an empty list if the starting vertex is not in the graph
+        if v_start not in self.adj_list:
+            return visited
+
+        # adds v_start to stack
+        stack.append(v_start)
+
+        # proceed as if there is no end vertex
+        if v_end not in self.adj_list or v_end is None:
+            while len(stack) > 0:
+                pop = stack.pop()
+                if pop not in visited:
+                    visited.append(pop)
+                    # sorts temp list
+                    temp = self.adj_list[pop]
+                    temp.sort()
+                    for val in temp:
+                        if val not in stack:
+                            stack.append(pop)
+            return visited
+
+        while len(stack) > 0:
+            pop = stack.pop()
+            if pop == v_end:
+                visited.append(pop)
+                return visited
+            if pop not in visited:
+                visited.append(pop)
+                # sorts temp list
+                temp = self.adj_list[pop]
+                temp.sort()
+                for val in temp:
+                    if val not in stack:
+                        stack.append(pop)
+
+        return visited
+
+
+
 
     def bfs(self, v_start, v_end=None) -> []:
         """
@@ -222,18 +262,18 @@ if __name__ == '__main__':
         print(list(path), g.is_valid_path(list(path)))
 
 
-    # print("\nPDF - method dfs() and bfs() example 1")
-    # print("--------------------------------------")
-    # edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
-    # g = UndirectedGraph(edges)
-    # test_cases = 'ABCDEGH'
-    # for case in test_cases:
-    #     print(f'{case} DFS:{g.dfs(case)} BFS:{g.bfs(case)}')
-    # print('-----')
-    # for i in range(1, len(test_cases)):
-    #     v1, v2 = test_cases[i], test_cases[-1 - i]
-    #     print(f'{v1}-{v2} DFS:{g.dfs(v1, v2)} BFS:{g.bfs(v1, v2)}')
-    #
+    print("\nPDF - method dfs() and bfs() example 1")
+    print("--------------------------------------")
+    edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
+    g = UndirectedGraph(edges)
+    test_cases = 'ABCDEGH'
+    for case in test_cases:
+        print(f'{case} DFS:{g.dfs(case)} BFS:{g.bfs(case)}')
+    print('-----')
+    for i in range(1, len(test_cases)):
+        v1, v2 = test_cases[i], test_cases[-1 - i]
+        print(f'{v1}-{v2} DFS:{g.dfs(v1, v2)} BFS:{g.bfs(v1, v2)}')
+
     #
     # print("\nPDF - method count_connected_components() example 1")
     # print("---------------------------------------------------")
