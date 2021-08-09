@@ -79,7 +79,14 @@ class UndirectedGraph:
         """
         Remove edge from the graph
         """
-        
+        # checks for key in the dictionary and returns if not present
+        if u not in self.adj_list or v not in self.adj_list:
+            return
+        if u in self.adj_list[v] and v in self.adj_list[u]:
+            self.adj_list[v].remove(u)
+            self.adj_list[u].remove(v)
+
+
 
     def remove_vertex(self, v: str) -> None:
         """
