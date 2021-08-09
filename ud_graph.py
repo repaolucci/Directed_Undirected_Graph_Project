@@ -105,7 +105,9 @@ class UndirectedGraph:
         """
         Return list of vertices in the graph (any order)
         """
+        # creates list
         vertices = []
+        # iterates through dictionary to add each vertex to list
         for key in self.adj_list:
             vertices.append(key)
         return vertices
@@ -114,19 +116,27 @@ class UndirectedGraph:
         """
         Return list of edges in the graph (any order)
         """
+        # creates list
         edges = []
+        # iterates through each key and value
         for key in self.adj_list:
             for value in self.adj_list[key]:
+                # ignores duplicates
                 if (value, key) not in edges:
+                    # adds tuple to list
                     edges.append((key, value))
         return edges
-
 
     def is_valid_path(self, path: []) -> bool:
         """
         Return true if provided path is valid, False otherwise
         """
-       
+        # iterates through list and checks for valid edges between consecutive vertices
+        for num in range(len(path)-1):
+            if path[num+1] not in self.adj_list[path[num]]:
+                return False
+        return True
+
 
     def dfs(self, v_start, v_end=None) -> []:
         """
