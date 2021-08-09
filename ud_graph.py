@@ -131,9 +131,18 @@ class UndirectedGraph:
         """
         Return true if provided path is valid, False otherwise
         """
+        # empty path is valid
+        if len(path) == 0:
+            return True
+        # handles path of size 1
+        if len(path) == 1:
+            # checks that vertex exists
+            if path[0] not in self.adj_list:
+                return False
+
         # iterates through list and checks for valid edges between consecutive vertices
         for num in range(len(path)-1):
-            if path[num+1] not in self.adj_list[path[num]]:
+            if path[num] not in self.adj_list[path[num+1]]:
                 return False
         return True
 
@@ -213,48 +222,48 @@ if __name__ == '__main__':
         print(list(path), g.is_valid_path(list(path)))
 
 
-    print("\nPDF - method dfs() and bfs() example 1")
-    print("--------------------------------------")
-    edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
-    g = UndirectedGraph(edges)
-    test_cases = 'ABCDEGH'
-    for case in test_cases:
-        print(f'{case} DFS:{g.dfs(case)} BFS:{g.bfs(case)}')
-    print('-----')
-    for i in range(1, len(test_cases)):
-        v1, v2 = test_cases[i], test_cases[-1 - i]
-        print(f'{v1}-{v2} DFS:{g.dfs(v1, v2)} BFS:{g.bfs(v1, v2)}')
-
-
-    print("\nPDF - method count_connected_components() example 1")
-    print("---------------------------------------------------")
-    edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
-    g = UndirectedGraph(edges)
-    test_cases = (
-        'add QH', 'remove FG', 'remove GQ', 'remove HQ',
-        'remove AE', 'remove CA', 'remove EB', 'remove CE', 'remove DE',
-        'remove BC', 'add EA', 'add EF', 'add GQ', 'add AC', 'add DQ',
-        'add EG', 'add QH', 'remove CD', 'remove BD', 'remove QG')
-    for case in test_cases:
-        command, edge = case.split()
-        u, v = edge
-        g.add_edge(u, v) if command == 'add' else g.remove_edge(u, v)
-        print(g.count_connected_components(), end=' ')
-    print()
-
-
-    print("\nPDF - method has_cycle() example 1")
-    print("----------------------------------")
-    edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
-    g = UndirectedGraph(edges)
-    test_cases = (
-        'add QH', 'remove FG', 'remove GQ', 'remove HQ',
-        'remove AE', 'remove CA', 'remove EB', 'remove CE', 'remove DE',
-        'remove BC', 'add EA', 'add EF', 'add GQ', 'add AC', 'add DQ',
-        'add EG', 'add QH', 'remove CD', 'remove BD', 'remove QG',
-        'add FG', 'remove GE')
-    for case in test_cases:
-        command, edge = case.split()
-        u, v = edge
-        g.add_edge(u, v) if command == 'add' else g.remove_edge(u, v)
-        print('{:<10}'.format(case), g.has_cycle())
+    # print("\nPDF - method dfs() and bfs() example 1")
+    # print("--------------------------------------")
+    # edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
+    # g = UndirectedGraph(edges)
+    # test_cases = 'ABCDEGH'
+    # for case in test_cases:
+    #     print(f'{case} DFS:{g.dfs(case)} BFS:{g.bfs(case)}')
+    # print('-----')
+    # for i in range(1, len(test_cases)):
+    #     v1, v2 = test_cases[i], test_cases[-1 - i]
+    #     print(f'{v1}-{v2} DFS:{g.dfs(v1, v2)} BFS:{g.bfs(v1, v2)}')
+    #
+    #
+    # print("\nPDF - method count_connected_components() example 1")
+    # print("---------------------------------------------------")
+    # edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
+    # g = UndirectedGraph(edges)
+    # test_cases = (
+    #     'add QH', 'remove FG', 'remove GQ', 'remove HQ',
+    #     'remove AE', 'remove CA', 'remove EB', 'remove CE', 'remove DE',
+    #     'remove BC', 'add EA', 'add EF', 'add GQ', 'add AC', 'add DQ',
+    #     'add EG', 'add QH', 'remove CD', 'remove BD', 'remove QG')
+    # for case in test_cases:
+    #     command, edge = case.split()
+    #     u, v = edge
+    #     g.add_edge(u, v) if command == 'add' else g.remove_edge(u, v)
+    #     print(g.count_connected_components(), end=' ')
+    # print()
+    #
+    #
+    # print("\nPDF - method has_cycle() example 1")
+    # print("----------------------------------")
+    # edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
+    # g = UndirectedGraph(edges)
+    # test_cases = (
+    #     'add QH', 'remove FG', 'remove GQ', 'remove HQ',
+    #     'remove AE', 'remove CA', 'remove EB', 'remove CE', 'remove DE',
+    #     'remove BC', 'add EA', 'add EF', 'add GQ', 'add AC', 'add DQ',
+    #     'add EG', 'add QH', 'remove CD', 'remove BD', 'remove QG',
+    #     'add FG', 'remove GE')
+    # for case in test_cases:
+    #     command, edge = case.split()
+    #     u, v = edge
+    #     g.add_edge(u, v) if command == 'add' else g.remove_edge(u, v)
+    #     print('{:<10}'.format(case), g.has_cycle())
