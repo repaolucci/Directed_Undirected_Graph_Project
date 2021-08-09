@@ -164,6 +164,7 @@ class UndirectedGraph:
         # proceed as if there is no end vertex
         if v_end not in self.adj_list or v_end is None:
             while len(stack) > 0:
+                #pop = stack.pop()
                 stack.sort()
                 pop = stack[0]
                 stack.remove(pop)
@@ -183,7 +184,7 @@ class UndirectedGraph:
             pop = stack[0]
             stack.remove(pop)
             if pop == v_end:
-                visited.append(pop)
+                #visited.append(pop)
                 return visited
             if pop not in visited:
                 visited.append(pop)
