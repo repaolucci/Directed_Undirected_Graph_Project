@@ -172,7 +172,7 @@ class UndirectedGraph:
                     temp.sort()
                     for val in temp:
                         if val not in stack:
-                            stack.append(pop)
+                            stack.append(val)
             return visited
 
         while len(stack) > 0:
@@ -187,7 +187,7 @@ class UndirectedGraph:
                 temp.sort()
                 for val in temp:
                     if val not in stack:
-                        stack.append(pop)
+                        stack.append(val)
 
         return visited
 
