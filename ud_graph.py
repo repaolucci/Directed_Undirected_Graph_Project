@@ -94,25 +94,33 @@ class UndirectedGraph:
         # returns if vertex does not exist
         if v not in self.adj_list:
             return
-        # removes vertex and associated edges
+        # removes vertex
         del self.adj_list[v]
-
+        # removes associated edges
         for key in self.adj_list:
             if v in self.adj_list[key]:
                 self.adj_list[key].remove(v)
-        
 
     def get_vertices(self) -> []:
         """
         Return list of vertices in the graph (any order)
         """
-       
+        vertices = []
+        for key in self.adj_list:
+            vertices.append(key)
+        return vertices
 
     def get_edges(self) -> []:
         """
         Return list of edges in the graph (any order)
         """
-        
+        edges = []
+        for key in self.adj_list:
+            for value in self.adj_list[key]:
+                if (value, key) not in edges:
+                    edges.append((key, value))
+        return edges
+
 
     def is_valid_path(self, path: []) -> bool:
         """
