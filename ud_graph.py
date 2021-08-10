@@ -269,8 +269,7 @@ class UndirectedGraph:
         # performs DFS on each key to check for a cycle
         for key in self.adj_list:
             # temp is the Boolean value returned by cycle_dfs
-            temp = self.cycle_dfs(key, None, [], None)
-            if temp is True:
+            if self.cycle_dfs(key, None, [], None):
                 return True
         return False
 
@@ -278,38 +277,69 @@ class UndirectedGraph:
         """
         Returns True if a cycle is found, and False otherwise.
         """
-        if stack == []:
-            print("???")
-            return
-        if stack == None:
-            stack = [v_start]
+        # initializes empty list of visited vertices and an empty stack
+        visited = []
+        stack = []
+        # returns an empty list if the starting vertex is not in the graph
+        if v_start not in self.adj_list:
+            return visited
 
-        vertex = stack.pop()
-        #print("v", vertex)
-        #print(stack)
+        # adds v_start to stack
+        stack.append((v_start, None))
 
-        if vertex in visited and vertex != parent and parent is not None:
-            # print("vertex", vertex)
-            # print("parent", parent)
-            return True
+        while len(stack) > 0:
+            vertex, parent = stack.pop()
 
-        if vertex not in visited:
-            visited.append(vertex)
-            for val in self.adj_list[vertex]:
-                if vertex in visited and vertex != parent and parent is not None:
-                    # print("ver", vertex)
-                    # print("par", parent)
-                    return True
-                stack.append(val)
-
-        parent = vertex
-
-        self.cycle_dfs(v_start, parent, visited, stack)
+            if vertex not in visited:
+                visited.append(vertex)
+                # sorts and reverses temp list
+                temp = self.adj_list[vertex]
+                temp.sort()
+                temp.reverse()
+                # appends values in reverse so that they will be popped in the correct order
+                for val in temp:
+                    if val in visited and val != parent:
+                        return True
+                    stack.append((val, vertex))
+        return False
 
 
-
-
-
+    # def cycle_dfs(self, v_start, parent, visited, stack):
+    #     """
+    #     Returns True if a cycle is found, and False otherwise.
+    #     """
+    #     if stack == []:
+    #         print("???")
+    #         return False
+    #     if stack == None:
+    #         stack = [v_start]
+    #
+    #     vertex = stack.pop()
+    #     #print("v", vertex)
+    #     #print(stack)
+    #
+    #     if vertex in visited and vertex != parent and parent is not None:
+    #         # print("vertex", vertex)
+    #         # print("parent", parent)
+    #         return True
+    #
+    #     if vertex not in visited:
+    #         visited.append(vertex)
+    #         for val in self.adj_list[vertex]:
+    #             if vertex in visited and vertex != parent and parent is not None:
+    #                 # print("ver", vertex)
+    #                 # print("par", parent)
+    #                 return True
+    #             stack.append(val)
+    #
+    #     parent = vertex
+    #
+    #     self.cycle_dfs(v_start, parent, visited, stack)
+    #
+    #
+    #
+    #
+    #
     # def cycle_dfs(self, v_start) -> []:
     #     """
     #     Returns True if a cycle is found, and False otherwise.

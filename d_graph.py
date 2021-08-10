@@ -120,13 +120,27 @@ class DirectedGraph:
                     edge_list.append((a_list, val, wt))
         return edge_list
 
-
-
     def is_valid_path(self, path: []) -> bool:
         """
-        TODO: Write this implementation
+        A method that takes a list of vertex indices and returns True if the sequence of
+        vertices represents a valid path in the graph. An empty path is considered valid.
         """
-        pass
+        #handles empty path
+        if path == []:
+            return True
+        # handles path of size 1
+        if len(path) == 1:
+            # checks that vertex exists
+            return True
+            # if path[0] not in self.adj_matrix:
+            #     return False
+
+        for val in range(len(path)):
+            if self.adj_matrix[(val*2) + 1][(val*2) + 2] == 0:
+                return False
+            # if self.adj_matrix[val] != 0:
+            #     continue
+        return True
 
     def dfs(self, v_start, v_end=None) -> []:
         """
