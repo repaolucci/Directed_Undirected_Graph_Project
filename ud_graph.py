@@ -3,8 +3,6 @@
 # Assignment: 6
 # Description: Assignment 6 for Summer 2021 CS 261, involving undirected graphs.
 
-import heapq
-from collections import deque
 
 class UndirectedGraph:
     """
