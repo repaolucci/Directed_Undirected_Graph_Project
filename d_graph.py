@@ -54,11 +54,12 @@ class DirectedGraph:
         """
         A method that adds a new vertex to the graph.
         """
-        # if self.v_count == 0:
-        #     self.adj_matrix.append([])
-        # else:
-        self.adj_matrix.append([0])
+        self.adj_matrix.append([])
         self.v_count += 1
+
+        for lst in self.adj_matrix:
+            while len(lst) < self.v_count:
+                lst.append(0)
         return self.v_count
 
     def add_edge(self, src: int, dst: int, weight=1) -> None:
@@ -68,10 +69,10 @@ class DirectedGraph:
         a positive integer, or if src and dst refer to the same vertex, the method does nothing.
         If an edge already exists in the graph, the method will update its weight.
         """
-        if weight < 1:
-            return
-        if src == dst:
-            return
+        # if weight < 1:
+        #     return
+        # if src == dst:
+        #     return
 
 
 
