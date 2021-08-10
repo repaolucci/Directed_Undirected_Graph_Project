@@ -276,6 +276,8 @@ class UndirectedGraph:
     def cycle_dfs(self, v_start, parent, visited, stack):
         """
         Returns True if a cycle is found, and False otherwise.
+        Citation: I worked with a tutor, who taught me to pass a tuple to the stack
+        to track a parent element.
         """
         # initializes empty list of visited vertices and an empty stack
         visited = []
