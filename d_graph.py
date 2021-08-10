@@ -128,17 +128,11 @@ class DirectedGraph:
         #handles empty path
         if path == []:
             return True
-        # handles path of size 1
-        if len(path) == 1:
-            # checks that vertex exists
-            return True
-            # if path[0] not in self.adj_matrix:
-            #     return False
 
+        # checks consecutive values for valid edge
         for val in range(len(path)-1):
             if self.adj_matrix[path[val]][path[val+1]] == 0:
                 return False
-
         return True
 
     def dfs(self, v_start, v_end=None) -> []:
