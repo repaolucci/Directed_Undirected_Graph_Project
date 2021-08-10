@@ -350,12 +350,8 @@ class DirectedGraph:
                 for val in range(len(self.adj_matrix[v])):
                     if val not in visited:
                         if self.adj_matrix[v][val] == 0:
-                            #dist = float("inf")
                             heapq.heappush(hq, (float("inf"), val))
                         elif self.adj_matrix[v][val] != 0:
-                            # dist_2 = dist + self.adj_matrix[v][val]
-                            # if dist_2 < visited[v]:
-                            #     heapq.heappush(hq, (dist, val))
                             dist += self.adj_matrix[v][val]
                             heapq.heappush(hq, (dist, val))
 
