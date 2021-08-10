@@ -78,6 +78,8 @@ class DirectedGraph:
             return
         if src > self.v_count-1 or dst > self.v_count-1:
             return
+        if src < 0 or dst < 0:
+            return
 
         # adds vertex at position in matrix
         self.adj_matrix[src][dst] = weight
@@ -91,8 +93,11 @@ class DirectedGraph:
         # checks conditions from Docstrings that do nothing
         if src > self.v_count-1 or dst > self.v_count-1:
             return
+        if src < 0 or dst < 0:
+            return
         if self.adj_matrix[src][dst] == 0:
             return
+
 
         # adds 0 at position in matrix
         self.adj_matrix[src][dst] = 0
