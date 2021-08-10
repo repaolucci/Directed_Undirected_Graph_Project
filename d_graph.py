@@ -148,9 +148,89 @@ class DirectedGraph:
 
     def dfs(self, v_start, v_end=None) -> []:
         """
-        TODO: Write this implementation
+        A method that performs a depth-first search in the graph and returns a list of vertices
+        visited during the search, in the order they were visited. V_start is the index from which
+        the search will start, v_end is an optional parameter for the index of the end vertex
+        that will stop the search once it is reached.
         """
-        pass
+        print("v_start", v_start)
+        if v_start < 0 or v_start > self.v_count:
+            return []
+
+        # initializes empty list of visited vertices and an empty stack
+        visited = []
+        stack = []
+        # returns an empty list if the starting vertex is not in the graph
+        if v_start < 0 or v_start > self.v_count:
+            return visited
+
+        # adds v_start to stack
+        stack.append(v_start)
+
+        if v_end is None:
+            while len(stack) > 0:
+                vertex = stack.pop()
+                if vertex not in visited:
+                    visited.append(vertex)
+                    # sorts and reverses temp list
+                    #temp = self.adj_matrix[vertex]
+                    # temp.sort()
+                    # temp.reverse()
+                    temp = []
+                    # appends values in reverse so that they will be popped in the correct order
+                    for val in range(len(self.adj_matrix[vertex])):
+                        if self.adj_matrix[vertex][val] != 0:
+                            temp.append(val)
+                        temp.sort()
+                        temp.reverse()
+                        for num in temp:
+                            stack.append(num)
+            return visited
+
+        # proceed as if there is no end vertex
+        elif v_end < 0 or v_end > self.v_count:
+            while len(stack) > 0:
+                vertex = stack.pop()
+                if vertex not in visited:
+                    visited.append(vertex)
+                    # sorts and reverses temp list
+                    #temp = self.adj_matrix[vertex]
+                    # temp.sort()
+                    # temp.reverse()
+                    temp = []
+                    # appends values in reverse so that they will be popped in the correct order
+                    for val in range(len(self.adj_matrix[vertex])):
+                        if self.adj_matrix[vertex][val] != 0:
+                            temp.append(val)
+                    temp.sort()
+                    temp.reverse()
+                    for num in temp:
+                        stack.append(num)
+            return visited
+
+        # v_end exists
+        while len(stack) > 0:
+            vertex = stack.pop()
+            # terminates the search at v_end
+            if vertex == v_end:
+                visited.append(vertex)
+                return visited
+            if vertex not in visited:
+                visited.append(vertex)
+                # sorts and reverses temp list
+                #temp = self.adj_matrix[vertex]
+                # temp.sort()
+                # temp.reverse()
+                temp = []
+                # appends values in reverse so that they will be popped in the correct order
+                for val in range(len(self.adj_matrix[vertex])):
+                    if self.adj_matrix[vertex][val] != 0:
+                        temp.append(val)
+                temp.sort()
+                temp.reverse()
+                for num in temp:
+                    stack.append(num)
+        return visited
 
     def bfs(self, v_start, v_end=None) -> []:
         """
@@ -207,15 +287,15 @@ if __name__ == '__main__':
     for path in test_cases:
         print(path, g.is_valid_path(path))
 
-    #
-    # print("\nPDF - method dfs() and bfs() example 1")
-    # print("--------------------------------------")
-    # edges = [(0, 1, 10), (4, 0, 12), (1, 4, 15), (4, 3, 3),
-    #          (3, 1, 5), (2, 1, 23), (3, 2, 7)]
-    # g = DirectedGraph(edges)
-    # for start in range(5):
-    #     print(f'{start} DFS:{g.dfs(start)} BFS:{g.bfs(start)}')
-    #
+
+    print("\nPDF - method dfs() and bfs() example 1")
+    print("--------------------------------------")
+    edges = [(0, 1, 10), (4, 0, 12), (1, 4, 15), (4, 3, 3),
+             (3, 1, 5), (2, 1, 23), (3, 2, 7)]
+    g = DirectedGraph(edges)
+    for start in range(5):
+        print(f'{start} DFS:{g.dfs(start)} BFS:{g.bfs(start)}')
+
     #
     # print("\nPDF - method has_cycle() example 1")
     # print("----------------------------------")
