@@ -348,12 +348,11 @@ class DirectedGraph:
                 # add v to the visited map with distance
                 visited[v] = dist
                 for val in range(len(self.adj_matrix[v])):
-                    if val not in visited:
-                        if self.adj_matrix[v][val] == 0:
-                            heapq.heappush(hq, (float("inf"), val))
-                        elif self.adj_matrix[v][val] != 0:
-                            dist += self.adj_matrix[v][val]
-                            heapq.heappush(hq, (dist, val))
+                    if self.adj_matrix[v][val] == 0:
+                        heapq.heappush(hq, (float("inf"), val))
+                    elif self.adj_matrix[v][val] != 0:
+                        dist += self.adj_matrix[v][val]
+                        heapq.heappush(hq, (dist, val))
 
 
         #return visited
