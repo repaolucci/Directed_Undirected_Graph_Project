@@ -332,7 +332,9 @@ class DirectedGraph:
         returned value should be infinity. Assumes that SRC is a valid vertex.
         """
         # initializes dictionary for visited
-        visited = {}
+        distances = {vertex: float("inf") for vertex in range(self.v_count)}
+        distances[src] = 0
+
         # initializes an empty priority queue, and insert src into it with distance (priority) 0
         hq = []
         heapq.heappush(hq, (0, src))
@@ -343,23 +345,69 @@ class DirectedGraph:
             # Let dist be v’s distance (priority)
             dist, v = heapq.heappop(hq)
 
-            # if v is not in the map of visited vertices
-            if v not in visited:
+            if dist <= distances[v]:
+                # if v is not in the map of visited vertices
+                # if v not in visited:
                 # add v to the visited map with distance
-                visited[v] = dist
+                # visited[v] = dist
                 for val in range(len(self.adj_matrix[v])):
-                    if self.adj_matrix[v][val] == 0:
-                        heapq.heappush(hq, (float("inf"), val))
-                    elif self.adj_matrix[v][val] != 0:
-                        dist += self.adj_matrix[v][val]
-                        heapq.heappush(hq, (dist, val))
+                    # if self.adj_matrix[v][val] == 0:
+                    #     heapq.heappush(hq, (float("inf"), val))
+                    if self.adj_matrix[v][val] != 0:  # if there is an edge between v and val
+                        dist_2 = dist + self.adj_matrix[v][val]
+                        if dist_2 < distances[val]:
+                            distances[val] = dist_2
+                            heapq.heappush(hq, (dist_2, val))
+                        # dist += self.adj_matrix[v][val]
+                        # heapq.heappush(hq, (dist_2, val))
 
-
-        #return visited
+        # return visited
         ret_list = []
-        for key in visited:
-            ret_list.append(visited[key])
+        for key in distances:
+            ret_list.append(distances[key])
         return ret_list
+
+
+
+    # def dijkstra(self, src: int) -> []:
+    #     """
+    #     Implements the Dijkstra algorithm to compute the length of the shortest path from a
+    #     given vertex to all other vertices in the graph. Returns a list with one value per
+    #     each vertex in the graph, where the value at index 0 is the length of the shortest path
+    #     from vertex SRC to vertex 0, the value at index 1 is the length of the shortest path
+    #     from vertex SRC to vertex 1, etc. If a certain vertex is not reachable from SRC, the
+    #     returned value should be infinity. Assumes that SRC is a valid vertex.
+    #     """
+    #     # initializes dictionary for visited
+    #     visited = {}
+    #     # initializes an empty priority queue, and insert src into it with distance (priority) 0
+    #     hq = []
+    #     heapq.heappush(hq, (0, src))
+    #
+    #     # while the priority queue is not empty
+    #     while len(hq) > 0:
+    #         # Remove the first element (a vertex) from the priority queue and assign it to v
+    #         # Let dist be v’s distance (priority)
+    #         dist, v = heapq.heappop(hq)
+    #
+    #         # if v is not in the map of visited vertices
+    #         if v not in visited:
+    #             # add v to the visited map with distance
+    #             visited[v] = dist
+    #             for val in range(len(self.adj_matrix[v])):
+    #
+    #                 if self.adj_matrix[v][val] == 0:
+    #                     heapq.heappush(hq, (float("inf"), val))
+    #                 elif self.adj_matrix[v][val] != 0:
+    #                     dist += self.adj_matrix[v][val]
+    #                     heapq.heappush(hq, (dist, val))
+    #
+    #
+    #     #return visited
+    #     ret_list = []
+    #     for key in visited:
+    #         ret_list.append(visited[key])
+    #     return ret_list
 
 
 if __name__ == '__main__':
