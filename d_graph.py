@@ -71,7 +71,7 @@ class DirectedGraph:
         a positive integer, or if src and dst refer to the same vertex, the method does nothing.
         If an edge already exists in the graph, the method will update its weight.
         """
-        # checks conditions from Docstrings that do nothing
+        # checks conditions that do nothing from Docstrings
         if weight < 1:
             return
         if src == dst:
@@ -90,7 +90,7 @@ class DirectedGraph:
         If either (or both) vertex indices do not exist in the graph, or if there is no
         edge between them, the method does nothing.
         """
-        # checks conditions from Docstrings that do nothing
+        # checks conditions that do nothing from Docstrings
         if src > self.v_count-1 or dst > self.v_count-1:
             return
         if src < 0 or dst < 0:
