@@ -71,38 +71,56 @@ class DirectedGraph:
         a positive integer, or if src and dst refer to the same vertex, the method does nothing.
         If an edge already exists in the graph, the method will update its weight.
         """
+        # checks conditions from Docstrings that do nothing
         if weight < 1:
             return
         if src == dst:
             return
-
         if src > self.v_count-1 or dst > self.v_count-1:
             return
 
+        # adds vertex at position in matrix
         self.adj_matrix[src][dst] = weight
-
-
-
-
-
 
     def remove_edge(self, src: int, dst: int) -> None:
         """
-        TODO: Write this implementation
+        A method that removes an edge between two vertices with provided indices.
+        If either (or both) vertex indices do not exist in the graph, or if there is no
+        edge between them, the method does nothing.
         """
         pass
 
     def get_vertices(self) -> []:
         """
-        TODO: Write this implementation
+        Returns a list of vertices of the graph.
         """
-        pass
+        a_list = []
+        for num in range(self.v_count):
+            a_list.append(num)
+        return a_list
 
     def get_edges(self) -> []:
         """
-        TODO: Write this implementation
+        Returns a list of edges in the graph. Each edge is returned as a tuple of two incident
+        vertex indices and weight. The first element in the tuple refers to the source vertex.
+        The second element in the tuple refers to the destination vertex. The third element in the
+        tuple is the weight of the edge.
         """
-        pass
+        # initializes edge list
+        edge_list = []
+
+        # iterates through matrix
+        for a_list in range(len(self.adj_matrix)):
+            for val in range(len(self.adj_matrix)):
+                # checks for edge at each position
+                if self.adj_matrix[a_list][val] != 0:
+                    # assigns weight at edge to wt
+                    wt = self.adj_matrix[a_list][val]
+                    # adds tuple to edge_list
+                    edge_list.append((a_list, val, wt))
+        return edge_list
+
+
 
     def is_valid_path(self, path: []) -> bool:
         """
@@ -162,15 +180,15 @@ if __name__ == '__main__':
     print(g.get_edges(), g.get_vertices(), sep='\n')
 
 
-    # print("\nPDF - method is_valid_path() example 1")
-    # print("--------------------------------------")
-    # edges = [(0, 1, 10), (4, 0, 12), (1, 4, 15), (4, 3, 3),
-    #          (3, 1, 5), (2, 1, 23), (3, 2, 7)]
-    # g = DirectedGraph(edges)
-    # test_cases = [[0, 1, 4, 3], [1, 3, 2, 1], [0, 4], [4, 0], [], [2]]
-    # for path in test_cases:
-    #     print(path, g.is_valid_path(path))
-    #
+    print("\nPDF - method is_valid_path() example 1")
+    print("--------------------------------------")
+    edges = [(0, 1, 10), (4, 0, 12), (1, 4, 15), (4, 3, 3),
+             (3, 1, 5), (2, 1, 23), (3, 2, 7)]
+    g = DirectedGraph(edges)
+    test_cases = [[0, 1, 4, 3], [1, 3, 2, 1], [0, 4], [4, 0], [], [2]]
+    for path in test_cases:
+        print(path, g.is_valid_path(path))
+
     #
     # print("\nPDF - method dfs() and bfs() example 1")
     # print("--------------------------------------")
