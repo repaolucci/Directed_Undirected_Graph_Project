@@ -98,7 +98,6 @@ class DirectedGraph:
         if self.adj_matrix[src][dst] == 0:
             return
 
-
         # adds 0 at position in matrix
         self.adj_matrix[src][dst] = 0
 
