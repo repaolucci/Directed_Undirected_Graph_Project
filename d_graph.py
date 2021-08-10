@@ -135,11 +135,10 @@ class DirectedGraph:
             # if path[0] not in self.adj_matrix:
             #     return False
 
-        for val in range(len(path)):
-            if self.adj_matrix[(val*2) + 1][(val*2) + 2] == 0:
+        for val in range(len(path)-1):
+            if self.adj_matrix[path[val]][path[val+1]] == 0:
                 return False
-            # if self.adj_matrix[val] != 0:
-            #     continue
+
         return True
 
     def dfs(self, v_start, v_end=None) -> []:
