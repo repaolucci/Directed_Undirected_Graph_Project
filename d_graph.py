@@ -172,17 +172,16 @@ class DirectedGraph:
                 vertex = stack.pop()
                 if vertex not in visited:
                     visited.append(vertex)
-                    # sorts and reverses temp list
-                    #temp = self.adj_matrix[vertex]
-                    # temp.sort()
-                    # temp.reverse()
+                    # creates temp list that will store neighbors
                     temp = []
-                    # appends values in reverse so that they will be popped in the correct order
+                    # adds neighbors to temp
                     for val in range(len(self.adj_matrix[vertex])):
                         if self.adj_matrix[vertex][val] != 0:
                             temp.append(val)
+                        # sorts and reverses temp list
                         temp.sort()
                         temp.reverse()
+                        # appends values in reverse so that they will be popped in the correct order
                         for num in temp:
                             stack.append(num)
             return visited
@@ -193,17 +192,16 @@ class DirectedGraph:
                 vertex = stack.pop()
                 if vertex not in visited:
                     visited.append(vertex)
-                    # sorts and reverses temp list
-                    #temp = self.adj_matrix[vertex]
-                    # temp.sort()
-                    # temp.reverse()
+                    # creates temp list that will store neighbors
                     temp = []
-                    # appends values in reverse so that they will be popped in the correct order
+                    # adds neighbors to temp
                     for val in range(len(self.adj_matrix[vertex])):
                         if self.adj_matrix[vertex][val] != 0:
                             temp.append(val)
+                    # sorts and reverses temp list
                     temp.sort()
                     temp.reverse()
+                    # appends values in reverse so that they will be popped in the correct order
                     for num in temp:
                         stack.append(num)
             return visited
@@ -217,17 +215,16 @@ class DirectedGraph:
                 return visited
             if vertex not in visited:
                 visited.append(vertex)
-                # sorts and reverses temp list
-                #temp = self.adj_matrix[vertex]
-                # temp.sort()
-                # temp.reverse()
+                # creates temp list that will store neighbors
                 temp = []
-                # appends values in reverse so that they will be popped in the correct order
+                # adds neighbors to temp
                 for val in range(len(self.adj_matrix[vertex])):
                     if self.adj_matrix[vertex][val] != 0:
                         temp.append(val)
+                # sorts and reverses temp list
                 temp.sort()
                 temp.reverse()
+                # appends values in reverse so that they will be popped in the correct order
                 for num in temp:
                     stack.append(num)
         return visited
