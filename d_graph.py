@@ -57,7 +57,7 @@ class DirectedGraph:
         # if self.v_count == 0:
         #     self.adj_matrix.append([])
         # else:
-        self.adj_matrix.append([])
+        self.adj_matrix.append([0])
         self.v_count += 1
         return self.v_count
 
