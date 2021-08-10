@@ -268,14 +268,15 @@ class UndirectedGraph:
 
         # performs DFS on each key to check for a cycle
         for key in self.adj_list:
-            # temp is the Boolean value returned by cycle_dfs
-            if self.cycle_dfs(key, None, [], None):
+            # calls helper cycle_dfs on key and returns True if a cycle is found
+            if self.cycle_dfs(key) is True:
                 return True
         return False
 
-    def cycle_dfs(self, v_start, parent, visited, stack):
+    def cycle_dfs(self, v_start):
         """
-        Returns True if a cycle is found, and False otherwise.
+        Helper method for has_cycle, using DFS algorithm. Returns True if a cycle is found, and
+        False otherwise.
         Citation: I worked with a tutor, who taught me to pass a tuple to the stack
         to track a parent element.
         """
