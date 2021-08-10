@@ -88,10 +88,11 @@ class DirectedGraph:
         If either (or both) vertex indices do not exist in the graph, or if there is no
         edge between them, the method does nothing.
         """
+        # checks conditions from Docstrings that do nothing
         if src > self.v_count-1 or dst > self.v_count-1:
             return
         if self.adj_matrix[src][dst] == 0:
-            return False
+            return
 
         # adds 0 at position in matrix
         self.adj_matrix[src][dst] = 0
