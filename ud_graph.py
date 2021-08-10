@@ -246,51 +246,184 @@ class UndirectedGraph:
         """
         Return number of connected components in the graph
         """
+        # tracks all visited nodes
         connected = []
-
+        # tracks number of connected components
         count = 0
 
         for key in self.adj_list:
+            # checks whether a vertex has been visited
             if key not in connected:
                 count += 1
                 temp = self.dfs(key)
+                # iterates through vertex's connections
                 for val in temp:
                     connected.append(val)
         return count
-
-        # for key in self.adj_list:
-        #     if connected == []:
-        #         connected.append(key)
-        #         count += 1
-        #         for val in self.adj_list[key]:
-        #             # if val not in connected:
-        #             connected.append(val)
-        #             for i in self.adj_list[val]:
-        #                 connected.append(i)
-        #     if key not in connected:
-        #         connected.append(key)
-        #         count += 1
-        #         for val in self.adj_list[key]:
-        #             # if val not in connected:
-        #             connected.append(val)
-        #             for i in self.adj_list[val]:
-        #                 connected.append(i)
-        #     else:
-        #         for val in self.adj_list[key]:
-        #             # if val not in connected:
-        #             connected.append(val)
-        #             for i in self.adj_list[val]:
-        #                 connected.append(i)
-        #
-        # return count
 
     def has_cycle(self):
         """
         Return True if graph contains a cycle, False otherwise
         """
-       
 
-   
+        # performs DFS on each key to check for a cycle
+        for key in self.adj_list:
+            # temp is the Boolean value returned by cycle_dfs
+            temp = self.cycle_dfs(key, None, [], None)
+            if temp is True:
+                return True
+        return False
+
+    def cycle_dfs(self, v_start, parent, visited, stack):
+        """
+        Returns True if a cycle is found, and False otherwise.
+        """
+        if stack == []:
+            print("???")
+            return
+        if stack == None:
+            stack = [v_start]
+
+        vertex = stack.pop()
+        #print("v", vertex)
+        #print(stack)
+
+        if vertex in visited and vertex != parent and parent is not None:
+            # print("vertex", vertex)
+            # print("parent", parent)
+            return True
+
+        if vertex not in visited:
+            visited.append(vertex)
+            for val in self.adj_list[vertex]:
+                if vertex in visited and vertex != parent and parent is not None:
+                    # print("ver", vertex)
+                    # print("par", parent)
+                    return True
+                stack.append(val)
+
+        parent = vertex
+
+        self.cycle_dfs(v_start, parent, visited, stack)
+
+
+
+
+
+    # def cycle_dfs(self, v_start) -> []:
+    #     """
+    #     Returns True if a cycle is found, and False otherwise.
+    #     """
+    #
+    #     if parent is None:
+    #         parent = v_start
+    #
+    #     # initializes empty list of visited vertices and an empty stack
+    #     visited = []
+    #     stack = []
+    #
+    #     parent = None
+    #
+    #     # adds v_start to stack
+    #     stack.append(v_start)
+    #
+    #     while len(stack) > 0:
+    #         vertex = stack.pop()
+    #
+    #         #### can't be most recent
+    #         #### already comparing stack vs. visited
+    #         #### make sure we only don't include a most recently visited node in stack
+    #         # if vertex in visited and vertex != parent:
+    #         #     return True
+    #
+    #         if vertex not in visited:
+    #             visited.append(vertex)
+    #             # sorts and reverses list of adjacent vertices
+    #             temp = self.adj_list[vertex]
+    #             temp.sort()
+    #             temp.reverse()
+    #             # appends values in reverse so that they will be popped in the correct order
+    #             for val in temp:
+    #                 if val in visited and val != parent:
+    #                     return True
+    #                 if val not in visited:
+    #                     stack.append(val)
+    #             parent = vertex
+    #         else:
+    #             return False
+    #
+    #     return False
+
+
+
+    # def cycle_dfs(self, v_start) -> []:
+    #     """
+    #     Returns True if a cycle is found, and False otherwise.
+    #     """
+    #     # initializes empty list of visited vertices and an empty stack
+    #     visited = []
+    #     stack = []
+    #
+    #     start = None
+    #
+    #     # adds v_start to stack
+    #     stack.append(v_start)
+    #
+    #     while len(stack) > 0:
+    #         vertex = stack.pop()
+    #
+    #         #### can't be most recent
+    #         #### already comparing stack vs. visited
+    #         #### make sure we only don't include a most recently visited node in stack
+    #         if vertex in visited and vertex != visited[-1]:
+    #             return True
+    #
+    #         if vertex not in visited:
+    #             visited.append(vertex)
+    #             # sorts and reverses list of adjacent vertices
+    #             temp = self.adj_list[vertex]
+    #             temp.sort()
+    #             temp.reverse()
+    #             # appends values in reverse so that they will be popped in the correct order
+    #             for val in temp:
+    #                 if val in visited and val != visited[-1]:
+    #                     return True
+    #                 stack.append(val)
+    #         else:
+    #             return False
+    #     return False
+
+    # def cycle_dfs(self, v_start, v_end=None) -> []:
+    #     """
+    #     Returns True if a cycle is found, and False otherwise.
+    #     """
+    #     # initializes empty list of visited vertices and an empty stack
+    #     visited = []
+    #     stack = []
+    #
+    #     start = None
+    #
+    #     # adds v_start to stack
+    #     stack.append(v_start)
+    #
+    #     while len(stack) > 0:
+    #         vertex = stack.pop()
+    #
+    #         if vertex == start:
+    #             return True
+    #         # sets start to v_start after first comparison
+    #         start = v_start
+    #
+    #         # sorts and reverses list of adjacent vertices
+    #         temp = self.adj_list[vertex]
+    #         temp.sort()
+    #         temp.reverse()
+    #         # appends values in reverse so that they will be popped in the correct order
+    #         for val in temp:
+    #             if val in stack:
+    #                 return True
+    #     return False
+
 
 
 if __name__ == '__main__':
@@ -368,19 +501,19 @@ if __name__ == '__main__':
         print(g.count_connected_components(), end=' ')
     print()
 
-    #
-    # print("\nPDF - method has_cycle() example 1")
-    # print("----------------------------------")
-    # edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
-    # g = UndirectedGraph(edges)
-    # test_cases = (
-    #     'add QH', 'remove FG', 'remove GQ', 'remove HQ',
-    #     'remove AE', 'remove CA', 'remove EB', 'remove CE', 'remove DE',
-    #     'remove BC', 'add EA', 'add EF', 'add GQ', 'add AC', 'add DQ',
-    #     'add EG', 'add QH', 'remove CD', 'remove BD', 'remove QG',
-    #     'add FG', 'remove GE')
-    # for case in test_cases:
-    #     command, edge = case.split()
-    #     u, v = edge
-    #     g.add_edge(u, v) if command == 'add' else g.remove_edge(u, v)
-    #     print('{:<10}'.format(case), g.has_cycle())
+
+    print("\nPDF - method has_cycle() example 1")
+    print("----------------------------------")
+    edges = ['AE', 'AC', 'BE', 'CE', 'CD', 'CB', 'BD', 'ED', 'BH', 'QG', 'FG']
+    g = UndirectedGraph(edges)
+    test_cases = (
+        'add QH', 'remove FG', 'remove GQ', 'remove HQ',
+        'remove AE', 'remove CA', 'remove EB', 'remove CE', 'remove DE',
+        'remove BC', 'add EA', 'add EF', 'add GQ', 'add AC', 'add DQ',
+        'add EG', 'add QH', 'remove CD', 'remove BD', 'remove QG',
+        'add FG', 'remove GE')
+    for case in test_cases:
+        command, edge = case.split()
+        u, v = edge
+        g.add_edge(u, v) if command == 'add' else g.remove_edge(u, v)
+        print('{:<10}'.format(case), g.has_cycle())
