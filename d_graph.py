@@ -153,88 +153,7 @@ class DirectedGraph:
         the search will start, v_end is an optional parameter for the index of the end vertex
         that will stop the search once it is reached.
         """
-        if v_start < 0 or v_start > self.v_count:
-            return []
-
-        # initializes empty list of visited vertices and an empty stack
-        visited = []
-        queue = []
-        # returns an empty list if the starting vertex is not in the graph
-        if v_start < 0 or v_start > self.v_count:
-            return visited
-
-        # adds v_start to stack
-        queue.append(v_start)
-
-        if v_end is None:
-            while len(queue) > 0:
-                vertex = queue.pop(0)
-                if vertex not in visited:
-                    visited.append(vertex)
-                    # creates temp list that will store neighbors
-                    temp = []
-                    # adds neighbors to temp
-                    for val in range(len(self.adj_matrix[vertex])):
-                        if self.adj_matrix[vertex][val] != 0:
-                            temp.append(val)
-                        # sorts and reverses temp list
-                        temp.sort()
-                        # appends values in reverse so that they will be popped in the correct order
-                        for num in temp:
-                            if num not in visited:
-                                queue.append(num)
-            return visited
-
-        # proceed as if there is no end vertex
-        elif v_end < 0 or v_end > self.v_count:
-            while len(queue) > 0:
-                vertex = queue.pop(0)
-                if vertex not in visited:
-                    visited.append(vertex)
-                    # creates temp list that will store neighbors
-                    temp = []
-                    # adds neighbors to temp
-                    for val in range(len(self.adj_matrix[vertex])):
-                        if self.adj_matrix[vertex][val] != 0:
-                            temp.append(val)
-                    # sorts and reverses temp list
-                    temp.sort()
-                    # appends values in reverse so that they will be popped in the correct order
-                    for num in temp:
-                        if num not in visited:
-                            queue.append(num)
-            return visited
-
-        # v_end exists
-        while len(queue) > 0:
-            vertex = queue.pop(0)
-            # terminates the search at v_end
-            if vertex == v_end:
-                visited.append(vertex)
-                return visited
-            if vertex not in visited:
-                visited.append(vertex)
-                # creates temp list that will store neighbors
-                temp = []
-                # adds neighbors to temp
-                for val in range(len(self.adj_matrix[vertex])):
-                    if self.adj_matrix[vertex][val] != 0:
-                        temp.append(val)
-                # sorts and reverses temp list
-                temp.sort()
-                # appends values in reverse so that they will be popped in the correct order
-                for num in temp:
-                    if num not in visited:
-                        queue.append(num)
-        return visited
-
-    def bfs(self, v_start, v_end=None) -> []:
-        """
-        A method that performs a breadth-first search in the graph and returns a list of vertices
-        visited during the search, in the order they were visited. V_start is the index from which
-        the search will start, v_end is an optional parameter for the index of the end vertex
-        that will stop the search once it is reached.
-        """
+        print("v_start", v_start)
         if v_start < 0 or v_start > self.v_count:
             return []
 
@@ -308,6 +227,89 @@ class DirectedGraph:
                 # appends values in reverse so that they will be popped in the correct order
                 for num in temp:
                     stack.append(num)
+        return visited
+
+    def bfs(self, v_start, v_end=None) -> []:
+        """
+        A method that performs a breadth-first search in the graph and returns a list of vertices
+        visited during the search, in the order they were visited. V_start is the index from which
+        the search will start, v_end is an optional parameter for the index of the end vertex
+        that will stop the search once it is reached.
+        """
+
+        if v_start < 0 or v_start > self.v_count:
+            return []
+
+        # initializes empty list of visited vertices and an empty stack
+        visited = []
+        queue = []
+        # returns an empty list if the starting vertex is not in the graph
+        if v_start < 0 or v_start > self.v_count:
+            return visited
+
+        # adds v_start to stack
+        queue.append(v_start)
+
+        if v_end is None:
+            while len(queue) > 0:
+                vertex = queue.pop(0)
+                if vertex not in visited:
+                    visited.append(vertex)
+                    # creates temp list that will store neighbors
+                    temp = []
+                    # adds neighbors to temp
+                    for val in range(len(self.adj_matrix[vertex])):
+                        if self.adj_matrix[vertex][val] != 0:
+                            temp.append(val)
+                        # sorts and reverses temp list
+                        temp.sort()
+                        # appends values in reverse so that they will be popped in the correct order
+                        for num in temp:
+                            if num not in visited:
+                                queue.append(num)
+            return visited
+
+        # proceed as if there is no end vertex
+        elif v_end < 0 or v_end > self.v_count:
+            while len(queue) > 0:
+                vertex = queue.pop(0)
+                if vertex not in visited:
+                    visited.append(vertex)
+                    # creates temp list that will store neighbors
+                    temp = []
+                    # adds neighbors to temp
+                    for val in range(len(self.adj_matrix[vertex])):
+                        if self.adj_matrix[vertex][val] != 0:
+                            temp.append(val)
+                    # sorts and reverses temp list
+                    temp.sort()
+                    # appends values in reverse so that they will be popped in the correct order
+                    for num in temp:
+                        if num not in visited:
+                            queue.append(num)
+            return visited
+
+        # v_end exists
+        while len(queue) > 0:
+            vertex = queue.pop(0)
+            # terminates the search at v_end
+            if vertex == v_end:
+                visited.append(vertex)
+                return visited
+            if vertex not in visited:
+                visited.append(vertex)
+                # creates temp list that will store neighbors
+                temp = []
+                # adds neighbors to temp
+                for val in range(len(self.adj_matrix[vertex])):
+                    if self.adj_matrix[vertex][val] != 0:
+                        temp.append(val)
+                # sorts and reverses temp list
+                temp.sort()
+                # appends values in reverse so that they will be popped in the correct order
+                for num in temp:
+                    if num not in visited:
+                        queue.append(num)
         return visited
 
     def has_cycle(self):
