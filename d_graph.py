@@ -88,7 +88,13 @@ class DirectedGraph:
         If either (or both) vertex indices do not exist in the graph, or if there is no
         edge between them, the method does nothing.
         """
-        pass
+        if src > self.v_count-1 or dst > self.v_count-1:
+            return
+        if self.adj_matrix[src][dst] == 0:
+            return False
+
+        # adds 0 at position in matrix
+        self.adj_matrix[src][dst] = 0
 
     def get_vertices(self) -> []:
         """
@@ -125,7 +131,7 @@ class DirectedGraph:
         A method that takes a list of vertex indices and returns True if the sequence of
         vertices represents a valid path in the graph. An empty path is considered valid.
         """
-        #handles empty path
+        # handles empty path
         if path == []:
             return True
 
