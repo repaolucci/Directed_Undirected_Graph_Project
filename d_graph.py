@@ -342,6 +342,12 @@ class DirectedGraph:
         if v_start < 0 or v_start > self.v_count:
             return visited
 
+        for e in range(len(self.adj_matrix[v_start])):
+            if self.adj_matrix[v_start][e] != 0:
+                if self.adj_matrix[e][v_start] != 0:
+                    return True
+
+
         # adds v_start to stack
         stack.append((v_start, None))
 
