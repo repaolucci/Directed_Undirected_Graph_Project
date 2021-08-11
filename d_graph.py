@@ -325,6 +325,10 @@ class DirectedGraph:
 
         # performs DFS on each key to check for a cycle
         for vertex in range(self.v_count):
+            for e in range(len(self.adj_matrix[vertex])):
+                if self.adj_matrix[vertex][e] != 0:
+                    if self.adj_matrix[e][vertex] != 0:
+                        return True
             # calls helper cycle_dfs on key and returns True if a cycle is found
             if self.cycle_dfs(vertex) is True:
                 return True
@@ -341,12 +345,6 @@ class DirectedGraph:
         # returns an empty list if the starting vertex is not in the graph
         if v_start < 0 or v_start > self.v_count:
             return visited
-
-        for e in range(len(self.adj_matrix[v_start])):
-            if self.adj_matrix[v_start][e] != 0:
-                if self.adj_matrix[e][v_start] != 0:
-                    return True
-
 
         # adds v_start to stack
         stack.append((v_start, None))
