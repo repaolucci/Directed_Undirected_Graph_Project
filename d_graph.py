@@ -330,21 +330,6 @@ class DirectedGraph:
                     if self.adj_matrix[col][li] != 0:
                         return True
 
-
-
-        # edge_list = []
-        # # checks for a cycle between two vertices
-        # for li in self.adj_matrix:
-        #     for col in range(self.v_count):
-        #         if li[col] != 0:
-        #             first = li
-        #             second = col
-        #             if (second, first) in edge_list:
-        #                 return True
-        #             else:
-        #                 edge_list.append((first, second))
-
-        # performs DFS on each key to check for a cycle
         for vertex in range(self.v_count):
             # calls helper cycle_dfs on key and returns True if a cycle is found
             if self.cycle_dfs(vertex) is True:
@@ -384,7 +369,6 @@ class DirectedGraph:
                 for val in temp:
                     # conditions for cycle
                     if val in visited and val != parent:
-                    #if val in visited:
                         for h in self.adj_matrix[val]:
                             # must have outgoing edge
                             if h != 0:
