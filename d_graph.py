@@ -325,7 +325,7 @@ class DirectedGraph:
 
         # performs DFS on each key to check for a cycle
         for vertex in range(self.v_count):
-            for e in range(len(self.adj_matrix[vertex])):
+            for e in range(self.v_count):
                 if self.adj_matrix[vertex][e] != 0:
                     if self.adj_matrix[e][vertex] != 0:
                         return True
