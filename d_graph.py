@@ -327,8 +327,8 @@ class DirectedGraph:
         for li in range(self.v_count):
             for col in range(self.v_count):
                 if self.adj_matrix[li][col] != 0:
-                    wt = self.adj_matrix[li][col]
-                    if self.adj_matrix[col][li] != 0 and self.adj_matrix[col][li] != wt:
+                    #wt = self.adj_matrix[li][col]
+                    if self.adj_matrix[col][li] != 0:
                         return True
 
         for vertex in range(self.v_count):
