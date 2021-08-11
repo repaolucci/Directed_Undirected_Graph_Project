@@ -369,7 +369,8 @@ class DirectedGraph:
                     temp.reverse()
                 for val in temp:
                     # conditions for cycle
-                    if val in visited and val != parent:
+                    # if val in visited and val != parent:
+                    if val in visited:
                         for h in self.adj_matrix[val]:
                             # must have outgoing edge
                             if h != 0:
