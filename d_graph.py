@@ -323,17 +323,25 @@ class DirectedGraph:
         if self.v_count == 0:
             return False
 
-        edge_list = []
-        # checks for a cycle between two vertices
-        for li in self.adj_matrix:
+        for li in range(self.v_count):
             for col in range(self.v_count):
-                if li[col] != 0:
-                    first = li
-                    second = col
-                    if (second, first) in edge_list:
+                if self.adj_matrix[li][col] != 0:
+                    if self.adj_matrix[col][li] != 0:
                         return True
-                    else:
-                        edge_list.append((first, second))
+
+
+
+        # edge_list = []
+        # # checks for a cycle between two vertices
+        # for li in self.adj_matrix:
+        #     for col in range(self.v_count):
+        #         if li[col] != 0:
+        #             first = li
+        #             second = col
+        #             if (second, first) in edge_list:
+        #                 return True
+        #             else:
+        #                 edge_list.append((first, second))
 
         # performs DFS on each key to check for a cycle
         for vertex in range(self.v_count):
@@ -374,8 +382,8 @@ class DirectedGraph:
                     temp.reverse()
                 for val in temp:
                     # conditions for cycle
-                    # if val in visited and val != parent:
-                    if val in visited:
+                    if val in visited and val != parent:
+                    #if val in visited:
                         for h in self.adj_matrix[val]:
                             # must have outgoing edge
                             if h != 0:
