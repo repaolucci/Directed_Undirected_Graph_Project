@@ -318,9 +318,54 @@ class DirectedGraph:
 
     def has_cycle(self):
         """
-        TODO: Write this implementation
+        A method that returns True if graph contains a cycle; False otherwise.
         """
         pass
+    #     if self.v_count == 0:
+    #         return False
+    #
+    #     # performs DFS on each key to check for a cycle
+    #     for key in self.adj_list:
+    #         # calls helper cycle_dfs on key and returns True if a cycle is found
+    #         if self.cycle_dfs(key) is True:
+    #             return True
+    #         return False
+    #
+    # def cycle_dfs(self, v_start):
+    #     """
+    #     Helper method for has_cycle, using DFS algorithm. Returns True if a cycle is found, and
+    #     False otherwise.
+    #     Citation: I worked with a tutor, who taught me to pass a tuple to the stack
+    #     to track a parent element.
+    #     """
+    #     # initializes empty list of visited vertices and an empty stack
+    #     visited = []
+    #     stack = []
+    #     # returns an empty list if the starting vertex is not in the graph
+    #     if v_start not in self.adj_list:
+    #         return visited
+    #
+    #     # adds v_start to stack
+    #     stack.append((v_start, None))
+    #
+    #     while len(stack) > 0:
+    #         # sets tuple to vertex and parent
+    #         vertex, parent = stack.pop()
+    #
+    #         if vertex not in visited:
+    #             visited.append(vertex)
+    #             # sorts and reverses temp list
+    #             temp = self.adj_list[vertex]
+    #             temp.sort()
+    #             temp.reverse()
+    #             # appends values in reverse so that they will be popped in the correct order
+    #             for val in temp:
+    #                 # conditions for cycle
+    #                 if val in visited and val != parent:
+    #                     return True
+    #                 # adds tuple to stack consisting of val and vertex as new parent
+    #                 stack.append((val, vertex))
+    #     return False
 
     def dijkstra(self, src: int) -> []:
         """
@@ -330,9 +375,14 @@ class DirectedGraph:
         from vertex SRC to vertex 0, the value at index 1 is the length of the shortest path
         from vertex SRC to vertex 1, etc. If a certain vertex is not reachable from SRC, the
         returned value should be infinity. Assumes that SRC is a valid vertex.
+        Citation: I consulted a tutor on how to initializing the distances dictionary with each
+        value set to float("inf"), as well as the first conditional statement in the while loop.
         """
-        # initializes dictionary for visited
-        distances = {vertex: float("inf") for vertex in range(self.v_count)}
+        # initializes dictionary for distances and sets default distance to float("inf")
+        distances = {}
+        for num in range(self.v_count):
+            distances[num] = float("inf")
+        # default at src is 0
         distances[src] = 0
 
         # initializes an empty priority queue, and insert src into it with distance (priority) 0
@@ -345,23 +395,20 @@ class DirectedGraph:
             # Let dist be v’s distance (priority)
             dist, v = heapq.heappop(hq)
 
+            # checks whether dist is less than the current distance
             if dist <= distances[v]:
-                # if v is not in the map of visited vertices
-                # if v not in visited:
-                # add v to the visited map with distance
-                # visited[v] = dist
                 for val in range(len(self.adj_matrix[v])):
-                    # if self.adj_matrix[v][val] == 0:
-                    #     heapq.heappush(hq, (float("inf"), val))
-                    if self.adj_matrix[v][val] != 0:  # if there is an edge between v and val
+                    # if there is an edge between v and val
+                    if self.adj_matrix[v][val] != 0:
+                        # sets new dist_2 variable to dist + weight of current edge
                         dist_2 = dist + self.adj_matrix[v][val]
+                        # sets distance to dist_2 if the path is shorter
                         if dist_2 < distances[val]:
                             distances[val] = dist_2
+                            # pushes tuple to hq
                             heapq.heappush(hq, (dist_2, val))
-                        # dist += self.adj_matrix[v][val]
-                        # heapq.heappush(hq, (dist_2, val))
 
-        # return visited
+        # returns list of shortest paths
         ret_list = []
         for key in distances:
             ret_list.append(distances[key])
