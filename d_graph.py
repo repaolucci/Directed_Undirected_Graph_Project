@@ -157,7 +157,6 @@ class DirectedGraph:
         the search will start, v_end is an optional parameter for the index of the end vertex
         that will stop the search once it is reached.
         """
-        print("v_start", v_start)
         if v_start < 0 or v_start > self.v_count:
             return []
 
@@ -413,49 +412,6 @@ class DirectedGraph:
         for key in distances:
             ret_list.append(distances[key])
         return ret_list
-
-
-
-    # def dijkstra(self, src: int) -> []:
-    #     """
-    #     Implements the Dijkstra algorithm to compute the length of the shortest path from a
-    #     given vertex to all other vertices in the graph. Returns a list with one value per
-    #     each vertex in the graph, where the value at index 0 is the length of the shortest path
-    #     from vertex SRC to vertex 0, the value at index 1 is the length of the shortest path
-    #     from vertex SRC to vertex 1, etc. If a certain vertex is not reachable from SRC, the
-    #     returned value should be infinity. Assumes that SRC is a valid vertex.
-    #     """
-    #     # initializes dictionary for visited
-    #     visited = {}
-    #     # initializes an empty priority queue, and insert src into it with distance (priority) 0
-    #     hq = []
-    #     heapq.heappush(hq, (0, src))
-    #
-    #     # while the priority queue is not empty
-    #     while len(hq) > 0:
-    #         # Remove the first element (a vertex) from the priority queue and assign it to v
-    #         # Let dist be v’s distance (priority)
-    #         dist, v = heapq.heappop(hq)
-    #
-    #         # if v is not in the map of visited vertices
-    #         if v not in visited:
-    #             # add v to the visited map with distance
-    #             visited[v] = dist
-    #             for val in range(len(self.adj_matrix[v])):
-    #
-    #                 if self.adj_matrix[v][val] == 0:
-    #                     heapq.heappush(hq, (float("inf"), val))
-    #                 elif self.adj_matrix[v][val] != 0:
-    #                     dist += self.adj_matrix[v][val]
-    #                     heapq.heappush(hq, (dist, val))
-    #
-    #
-    #     #return visited
-    #     ret_list = []
-    #     for key in visited:
-    #         ret_list.append(visited[key])
-    #     return ret_list
-
 
 if __name__ == '__main__':
 
