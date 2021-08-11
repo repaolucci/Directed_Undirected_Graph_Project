@@ -327,7 +327,6 @@ class DirectedGraph:
         for li in range(self.v_count):
             for col in range(self.v_count):
                 if self.adj_matrix[li][col] != 0:
-                    #wt = self.adj_matrix[li][col]
                     if self.adj_matrix[col][li] != 0:
                         return True
 
@@ -369,8 +368,7 @@ class DirectedGraph:
                     temp.reverse()
                 for val in temp:
                     # conditions for cycle
-                    # if val in visited and val != parent:
-                    if val in visited:
+                    if val in visited and val != parent:
                         for h in self.adj_matrix[val]:
                             # must have outgoing edge
                             if h != 0:
