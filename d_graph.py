@@ -323,12 +323,20 @@ class DirectedGraph:
         if self.v_count == 0:
             return False
 
+        edge_list = []
+        # checks for a cycle between two vertices
+        for li in self.adj_matrix:
+            for col in range(self.v_count):
+                if li[col] != 0:
+                    first = li
+                    second = col
+                    if (second, first) in edge_list:
+                        return True
+                    else:
+                        edge_list.append((first, second))
+
         # performs DFS on each key to check for a cycle
         for vertex in range(self.v_count):
-            for e in range(self.v_count):
-                if self.adj_matrix[vertex][e] != 0:
-                    if self.adj_matrix[e][vertex] != 0:
-                        return True
             # calls helper cycle_dfs on key and returns True if a cycle is found
             if self.cycle_dfs(vertex) is True:
                 return True
