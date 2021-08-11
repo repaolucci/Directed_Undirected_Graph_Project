@@ -323,6 +323,7 @@ class DirectedGraph:
         if self.v_count == 0:
             return False
 
+        # checks for a cycle between two vertices
         for li in range(self.v_count):
             for col in range(self.v_count):
                 if self.adj_matrix[li][col] != 0:
