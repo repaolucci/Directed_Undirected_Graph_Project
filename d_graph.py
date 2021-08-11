@@ -320,51 +320,53 @@ class DirectedGraph:
         A method that returns True if graph contains a cycle; False otherwise.
         """
         pass
-    #     if self.v_count == 0:
-    #         return False
-    #
-    #     # performs DFS on each key to check for a cycle
-    #     for key in self.adj_list:
-    #         # calls helper cycle_dfs on key and returns True if a cycle is found
-    #         if self.cycle_dfs(key) is True:
-    #             return True
-    #         return False
-    #
-    # def cycle_dfs(self, v_start):
-    #     """
-    #     Helper method for has_cycle, using DFS algorithm. Returns True if a cycle is found, and
-    #     False otherwise.
-    #     Citation: I worked with a tutor, who taught me to pass a tuple to the stack
-    #     to track a parent element.
-    #     """
-    #     # initializes empty list of visited vertices and an empty stack
-    #     visited = []
-    #     stack = []
-    #     # returns an empty list if the starting vertex is not in the graph
-    #     if v_start not in self.adj_list:
-    #         return visited
-    #
-    #     # adds v_start to stack
-    #     stack.append((v_start, None))
-    #
-    #     while len(stack) > 0:
-    #         # sets tuple to vertex and parent
-    #         vertex, parent = stack.pop()
-    #
-    #         if vertex not in visited:
-    #             visited.append(vertex)
-    #             # sorts and reverses temp list
-    #             temp = self.adj_list[vertex]
-    #             temp.sort()
-    #             temp.reverse()
-    #             # appends values in reverse so that they will be popped in the correct order
-    #             for val in temp:
-    #                 # conditions for cycle
-    #                 if val in visited and val != parent:
-    #                     return True
-    #                 # adds tuple to stack consisting of val and vertex as new parent
-    #                 stack.append((val, vertex))
-    #     return False
+        if self.v_count == 0:
+            return False
+
+        # performs DFS on each key to check for a cycle
+        for vertex in range(self.v_count):
+            # calls helper cycle_dfs on key and returns True if a cycle is found
+            if self.cycle_dfs(vertex) is True:
+                return True
+            return False
+
+    def cycle_dfs(self, v_start):
+        """
+        Helper method for has_cycle, using DFS algorithm. Returns True if a cycle is found, and
+        False otherwise.
+        """
+        # initializes empty list of visited vertices and an empty stack
+        visited = []
+        stack = []
+        # returns an empty list if the starting vertex is not in the graph
+        if v_start < 0 or v_start > self.v_count:
+            return visited
+
+        # adds v_start to stack
+        stack.append((v_start, None))
+
+        while len(stack) > 0:
+            # sets tuple to vertex and parent
+            vertex, parent = stack.pop()
+
+            if vertex not in visited:
+                visited.append(vertex)
+                # creates temp list that will store neighbors
+                temp = []
+                # adds neighbors to temp
+                for val in range(len(self.adj_matrix[vertex])):
+                    if self.adj_matrix[vertex][val] != 0:
+                        temp.append(val)
+                    # sorts and reverses temp list
+                    temp.sort()
+                    temp.reverse()
+                for val in temp:
+                    # conditions for cycle
+                    if val in visited and val != parent:
+                        return True
+                    # adds tuple to stack consisting of val and vertex as new parent
+                    stack.append((val, vertex))
+        return False
 
     def dijkstra(self, src: int) -> []:
         """
