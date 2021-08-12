@@ -364,10 +364,11 @@ class DirectedGraph:
                 for val in range(len(self.adj_matrix[vertex])):
                     if self.adj_matrix[vertex][val] != 0:
                         temp.append(val)
+                # sorts and reverses temp list
+                temp.sort(reverse=True)
                 for val in temp:
                     # conditions for cycle
-                    #if val in visited and val != parent:
-                    if val in visited:
+                    if val in visited and val != parent:
                         for h in self.adj_matrix[val]:
                             # must have outgoing edge
                             if h != 0:
