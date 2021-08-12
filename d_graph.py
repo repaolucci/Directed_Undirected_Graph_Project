@@ -334,7 +334,7 @@ class DirectedGraph:
             # calls helper cycle_dfs on vertex and returns True if a cycle is found
             if self.cycle_dfs(vertex) is True:
                 return True
-            return False
+        return False
 
     def cycle_dfs(self, v_start):
         """
@@ -364,9 +364,6 @@ class DirectedGraph:
                 for val in range(len(self.adj_matrix[vertex])):
                     if self.adj_matrix[vertex][val] != 0:
                         temp.append(val)
-                    # sorts and reverses temp list
-                temp.sort()
-                temp.reverse()
                 for val in temp:
                     # conditions for cycle
                     if val in visited and val != parent:
