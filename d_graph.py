@@ -323,12 +323,12 @@ class DirectedGraph:
         if self.v_count == 0:
             return False
 
-        # # checks for a cycle between two vertices with edges pointing to each other
-        # for li in range(self.v_count):
-        #     for col in range(self.v_count):
-        #         if self.adj_matrix[li][col] != 0:
-        #             if self.adj_matrix[col][li] != 0:
-        #                 return True
+        # checks for a cycle between two vertices with edges pointing to each other
+        for li in range(self.v_count):
+            for col in range(self.v_count):
+                if self.adj_matrix[li][col] != 0:
+                    if self.adj_matrix[col][li] != 0:
+                        return True
 
         for vertex in range(self.v_count):
             # calls helper cycle_dfs on vertex and returns True if a cycle is found
@@ -354,7 +354,6 @@ class DirectedGraph:
         while len(stack) > 0:
             # sets tuple to vertex and parent
             vertex, parent = stack.pop()
-            print(vertex)
 
             if vertex not in visited:
                 visited.append(vertex)
