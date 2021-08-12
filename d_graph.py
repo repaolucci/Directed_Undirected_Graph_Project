@@ -369,11 +369,10 @@ class DirectedGraph:
                 for val in temp:
                     # conditions for cycle
                     if val in visited and val != parent:
-                        #for h in self.adj_matrix[val]:
-                            # # must have outgoing edge
-                            # if h != 0:
-                        return True
-                        #continue
+                        for h in self.adj_matrix[val]:
+                            # must have outgoing edge
+                            if h != 0:
+                                return True
                     # adds tuple to stack consisting of val and vertex as new parent
                     stack.append((val, vertex))
         return False
